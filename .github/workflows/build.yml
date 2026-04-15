@@ -17,14 +17,19 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install dependencies
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+
+    - name: Enable Windows Desktop
+      run: |
+        flutter config --enable-windows-desktop
+
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install flet pandas openpyxl
-
-    - name: Enable Developer Mode
-      run: |
-        reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /v "AllowDevelopmentWithoutDevLicense" /d 1 /f
 
     - name: Build Windows Executable
       run: |
