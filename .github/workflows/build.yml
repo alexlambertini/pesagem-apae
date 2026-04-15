@@ -22,9 +22,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install flet pandas openpyxl
 
+    - name: Enable Developer Mode
+      run: |
+        reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /v "AllowDevelopmentWithoutDevLicense" /d 1 /f
+
     - name: Build Windows Executable
       run: |
-        flet build windows
+        flet build windows --verbose
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
